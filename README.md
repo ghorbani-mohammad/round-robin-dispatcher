@@ -89,14 +89,25 @@ python main.py
 # In another terminal, run the tests
 python test_dispatcher.py
 ```
-Test1: It shows how 5 SEQUENTIAL requests were assigned.
+### 🧪 Test Results & Visualizations
 
-![Test 1 Results](test1-result.png)
+#### 1️⃣ **Round-Robin Assignment (Sequential Requests)**
+It shows how 5 SEQUENTIAL requests were assigned.
 
-Test2: It shows duplication check works for duplicate request-id
+<p align="center">
+  <img src="test1-result.png" alt="Test 1 Results"/>
+</p>
 
-![Test 2 Results](test2-result.png)
+#### 2️⃣ **Deduplication Check**
+It shows duplication check works for duplicate request-id
 
-Test3: It shows how well requests are distributed in concurrent situation
+<p align="center">
+  <img src="test2-result.png" alt="Test 2 Results"/>
+</p>
 
-![Test 3 Results](test3-result.png)
+#### 3️⃣ **Concurrent Requests Distribution**
+It shows how well requests are distributed in concurrent situation
+
+<p align="center">
+  <img src="test3-result.png" alt="Test 3 Results"/>
+</p>
