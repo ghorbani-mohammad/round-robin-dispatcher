@@ -8,14 +8,7 @@ A FastAPI-based request dispatcher that implements round-robin load balancing ac
 - **Request Deduplication**: Prevents the same request from being processed twice
 - **Background Processing**: Uses FastAPI background tasks for async processing
 - **Database Storage**: Stores all requests and results using SQLAlchemy
-- **Status Tracking**: Track request status (queued, processing, completed, failed)
 
-## Requirements
-
-- Python 3.12+
-- FastAPI
-- SQLAlchemy
-- SQLite (default) or other SQL database
 
 ## Installation
 
@@ -66,7 +59,6 @@ Process a new request with round-robin worker assignment.
   "message": "Request queued for processing",
   "request_id": "abc123",
   "worker_id": 0,
-  "status": "queued",
   "created_at": "2024-01-01T12:00:00"
 }
 ```
@@ -78,7 +70,6 @@ HTTP 409 Conflict
   "detail": {
     "error": "Request already processed or in progress",
     "request_id": "abc123",
-    "status": "processing",
     "worker_id": 0,
     "created_at": "2024-01-01T12:00:00"
   }
@@ -96,24 +87,14 @@ python main.py
 # In another terminal, run the tests
 python test_dispatcher.py
 ```
+Test1: It shows how 5 SEQUENTIAL requests were assigned.
 
-## How It Works
+![Test 1 Results](test1-result.png)
 
-1. **Request Reception**: API receives POST request with `request_id` and `payload`
-2. **Deduplication Check**: Checks if `request_id` already exists in database
-3. **Worker Assignment**: Uses round-robin algorithm to assign request to next available worker (0 → 1 → 2 → 0...)
-4. **Database Storage**: Saves request to database with status "queued"
-5. **Background Processing**: Worker processes request asynchronously
-6. **Result Storage**: Updates database with processing result and status
+Test2: It shows duplication check works for duplicate request-id
 
-## Architecture
+![Test 2 Results](test2-result.png)
 
-```
-Request → Deduplication Check → Round-Robin Assignment → Database → Background Processing → Result Storage
-```
+Test3: It shows how well requests are distributed in concurrent situation
 
-- **models.py**: SQLAlchemy database models
-- **database.py**: Database configuration and connection
-- **worker_manager.py**: Round-robin worker assignment and processing logic
-- **main.py**: FastAPI application with all endpoints
-- **test_dispatcher.py**: Test script to verify functionality
+![Test 3 Results](test3-result.png)
