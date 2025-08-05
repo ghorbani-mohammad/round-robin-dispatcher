@@ -78,6 +78,8 @@ HTTP 409 Conflict
 
 ## Testing
 
+**⚠️ Caution**: For clean test results, you may need to delete the SQLite database file (`dispatcher.db`) before running tests to ensure a fresh start.
+
 Run the test script to see round-robin distribution and deduplication in action:
 
 ```bash
